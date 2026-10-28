@@ -13,29 +13,27 @@ signature: 'v1.eyJzdWIiOiIyODYiLCJhdWQiOiJjaGFsbGVuZ2U6d2hhdC1pdC1zaG93cyIsImlhd
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-[#4471](/kb/incidents/4471) said the date reports were one issue with one fix queued. The desk's own
-table said otherwise: the reports merged into it had two causes. They were merged on subject line
-alone ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and "wrong date" is a subject that
-more than one bug produces.
+[#4471](/kb/incidents/4471) says the date reports are one issue with one fix queued. The desk's own
+table below says otherwise: the reports merged into it have more than one cause. They were merged on
+subject line alone ([decision 0001](/kb/decisions/0001-dedupe-by-subject)), and "wrong date" is a
+subject that more than one bug produces.
 
 <Callout kind="warn">
-The fix queued for #4471 is the parser fix. It closes #1 only; #2 stays open after it ships.
+The fix queued for #4471 is the parser fix. It does nothing for the <code>hint</code> reports: they
+now have their own ticket.
 </Callout>
 
-Each cause has its own ticket now, and the export merges its reports into it:
+## What #4471 holds
+
+<CauseTable ticket={4471} />
+
+Each cause has its own ticket now:
 
 - `parser` → [#1 Shared date parser reads day-first dates month first](https://github.com/ciborro/mega-what-it-shows-2/issues/1)
 - `hint` → [#2 booking-v3 form tells day-first tenants to type MM/DD/YYYY](https://github.com/ciborro/mega-what-it-shows-2/issues/2)
 
-## #1 · parser
-
-<CauseTable ticket={1} />
-
-## #2 · hint
-
-<CauseTable ticket={2} />
-
-The counts are the desk's own: each table is built from the ticket export when the page renders.
+The counts are the desk's own: the table is built from the ticket export when the page renders, so
+they follow the queue.
 
 ## What each problem is
 
@@ -44,7 +42,7 @@ swapped: 7 April becomes 4 July.
 
 **`hint`** — `booking-v3` prints `MM/DD/YYYY` under its date field. People type month first, as told,
 and the form reads the value the tenant's way. Same symptom as `parser`, different code, different
-fix.
+fix. The table above marks it "no ticket of its own"; #2 is that ticket.
 
 The reports in the footnote, which the desk read as a one-day move, stay counted under `parser`,
 where their tenant files them. Their bodies describe a date shifted by one day rather than a swap,
